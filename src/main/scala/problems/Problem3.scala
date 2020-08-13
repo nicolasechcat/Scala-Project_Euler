@@ -2,6 +2,8 @@ package problems
 
 import utils.Utils._
 
+import scala.annotation.tailrec
+
 /**
   * Largest prime factor
   *
@@ -13,11 +15,13 @@ import utils.Utils._
 object Problem3 extends App {
 
   def largestPrimeFactor(x: Long): Long = {
+    @tailrec
     def reduce(number: Long, divisor: Long): Long = {
       if (number % divisor == 0) reduce(number / divisor, divisor)
       else number
     }
 
+    @tailrec
     def loop(n: Long, remaining: Long, r: List[Long]): List[Long] = {
       if (n <= remaining) {
         if (remaining % n == 0 && isCoPrime(n, r)) {

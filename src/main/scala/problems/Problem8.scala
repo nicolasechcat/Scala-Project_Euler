@@ -2,6 +2,8 @@ package problems
 
 import utils.Utils._
 
+import scala.annotation.tailrec
+
 /**
   * Largest product in a series
   *
@@ -34,6 +36,7 @@ import utils.Utils._
 object Problem8 extends App {
 
   def checkGreatestProduct(numbers: List[Long], adjacentLength: Int): Long = {
+    @tailrec
     def loop(unprocessed: List[Long], result: Long): Long = {
       if (unprocessed.isEmpty) result
       else {

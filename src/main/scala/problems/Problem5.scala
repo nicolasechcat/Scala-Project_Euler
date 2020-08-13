@@ -2,6 +2,8 @@ package problems
 
 import utils.Utils._
 
+import scala.annotation.tailrec
+
 /**
   * Smallest multiple
   *
@@ -17,6 +19,7 @@ object Problem5 extends App {
     def obtainMCMFactors(factorizations: List[List[(Int, Int)]]): List[(Int, Int)] = {
 
       def insertBigger(prime: Int, exponent: Int, insertingList: List[(Int, Int)]): List[(Int, Int)] = {
+        @tailrec
         def loopInsertBigger(unprocessed: List[(Int, Int)], processed: List[(Int, Int)]): List[(Int, Int)] = {
           unprocessed match {
             case (`prime`, e) :: t =>
@@ -30,6 +33,7 @@ object Problem5 extends App {
         loopInsertBigger(insertingList, Nil)
       }
 
+      @tailrec
       def addFactors(unprocessed: List[(Int, Int)], result: List[(Int, Int)]): List[(Int, Int)] = {
         unprocessed match {
           case (p, e) :: t =>
@@ -39,6 +43,7 @@ object Problem5 extends App {
         }
       }
 
+      @tailrec
       def loopObtainMCMFactors(unprocessed: List[List[(Int, Int)]], result: List[(Int, Int)]): List[(Int, Int)] = {
         unprocessed match {
           case factors :: t =>

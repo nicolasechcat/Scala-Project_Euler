@@ -2,6 +2,8 @@ package problems
 
 import utils.Utils._
 
+import scala.annotation.tailrec
+
 
 /*
   * Sum square difference
@@ -20,15 +22,16 @@ import utils.Utils._
 object Problem6 extends App {
 
   def differenceSquareSum(numberLimit: Int): Long = {
-    def iterate(unprocessed: List[Int], squared: Long, unsquared: Long): (Long, Long) = {
+    @tailrec
+    def iterate(unprocessed: List[Int], squared: Long, unSquared: Long): (Long, Long) = {
       unprocessed match {
-        case h :: t => iterate(t, squared + Math.pow(h, 2).toLong, unsquared + h)
-        case Nil => (squared, unsquared)
+        case h :: t => iterate(t, squared + Math.pow(h, 2).toLong, unSquared + h)
+        case Nil => (squared, unSquared)
       }
     }
 
-    val (squared, unsquared) = iterate((1 to numberLimit).toList, 0, 0)
-    Math.abs(squared - Math.pow(unsquared, 2).toLong)
+    val (squared, unSquared) = iterate((1 to numberLimit).toList, 0, 0)
+    Math.abs(unSquared - Math.pow(unSquared, 2).toLong)
   }
 
 

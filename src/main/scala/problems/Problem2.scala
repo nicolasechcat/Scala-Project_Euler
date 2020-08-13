@@ -2,6 +2,8 @@ package problems
 
 import utils.Utils._
 
+import scala.annotation.tailrec
+
 /**
   * Even Fibonacci numbers
   *
@@ -19,6 +21,7 @@ object Problem2 extends App {
 
 
   def evenFibonacciSum(limit: Long): Long = {
+    @tailrec
     def loop(before: Long, last: Long, r: Long): Long = {
       val next = last + before
       //      println(s"before: $before \t last: $last \t next: $next")

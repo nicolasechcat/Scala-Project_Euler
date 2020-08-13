@@ -1,5 +1,6 @@
 package utils
 
+import scala.annotation.tailrec
 import scala.concurrent.duration._
 
 object Utils {
@@ -7,8 +8,8 @@ object Utils {
   /**
     * Shows the result and the execution time
     *
-    * @param block
-    * @tparam R
+    * @param block Function to be executed and measured
+    * @tparam R Return type of the measured function
     * @return
     */
   def measure[R](block: => R): R = {
@@ -22,6 +23,13 @@ object Utils {
     result
   }
 
+  /**
+   *
+   * @param message Message to be printed at the beginning of the measurement
+   * @param block Function to be executed and measured
+   * @tparam R Return type of the measured function
+   * @return
+   */
   def measure[R](message: String, block: => R): R = {
     val t0 = System.nanoTime()
     val result = block // call-by-name
@@ -38,23 +46,24 @@ object Utils {
   /**
     * Primes generator
     *
-    * @param s
+    * @param s Initializer
     * @return
     */
-  def primeStream(s: Stream[Int]): Stream[Int] =
-    Stream.cons(s.head, primeStream(s.tail filter {
+  def primeStream(s: LazyList[Int]): LazyList[Int] =
+    LazyList.cons(s.head, primeStream(s.tail filter {
       _ % s.head != 0
     }))
 
-  val primesGenerator = primeStream(Stream.from(2))
+  val primesGenerator: LazyList[Int] = primeStream(LazyList.from(2))
 
   /**
     * Returns a list with the firsts primesNumber primes
     *
-    * @param primesNumber
+    * @param primesNumber Number of prime number to be returned
     * @return
     */
   def getFirstPrimes(primesNumber: Int): List[Long] = {
+    @tailrec
     def loop(number: Long, primeList: List[Long], index: Int): List[Long] = {
       if (index == primesNumber) primeList
       else if (primeList.forall(n => (number % n) != 0))
@@ -69,10 +78,11 @@ object Utils {
   /**
     * Returns a list with the prime numbers below primesTop
     *
-    * @param primesTop
+    * @param primesTop Number which is going to be greater than all the prime numbers returned
     * @return
     */
   def getPrimesBelowNumber(primesTop: Int): List[Long] = {
+    @tailrec
     def loop(number: Long, primeList: List[Long]): List[Long] = {
       if (number >= primesTop) primeList
       else if (primeList.forall(n => (number % n) != 0)) {
@@ -89,10 +99,11 @@ object Utils {
   /**
     * Returns true if the number is co-prime with all the numbers of the list
     *
-    * @param n
-    * @param primeList
+    * @param n Number to be checked
+    * @param primeList List of number used during the check
     * @return
     */
+  @tailrec
   def isCoPrime(n: Long, primeList: List[Long]): Boolean = {
     primeList match {
       case h :: t => if (n % h == 0) false else isCoPrime(n, t)
@@ -103,13 +114,14 @@ object Utils {
   /**
     * Returns a list of primes till the given number
     *
-    * @param x
+    * @param n Number which is going to be greater than all the prime numbers returned
     * @return
     */
-  def getPrimeList(x: Long): List[Long] = {
+  def getPrimeList(n: Long): List[Long] = {
+    @tailrec
     def loop(n: Long, r: List[Long]): List[Long] = {
       //      println(r)
-      if (n <= x) {
+      if (n <= n) {
         if (isCoPrime(n, r))
           loop(n + 1, n :: r)
         else
@@ -124,11 +136,12 @@ object Utils {
   /**
     * Returns the factorization in prime numbers of the given number
     *
-    * @param number
+    * @param number Number to be factorized
     * @return
     */
   def getPrimeFactorization(number: Long): List[(Int, Int)] = {
     def reduce(number: Long, p: Int): (Long, Int) = {
+      @tailrec
       def loop(n: Long, exponent: Int): (Long, Int) = {
         if (n % p == 0) loop(n / p, exponent + 1)
         else (n, exponent)
@@ -137,7 +150,8 @@ object Utils {
       loop(number, 0)
     }
 
-    def loop(primeList: Stream[Int], number: Long, r: List[(Int, Int)]): List[(Int, Int)] = {
+    @tailrec
+    def loop(primeList: LazyList[Int], number: Long, r: List[(Int, Int)]): List[(Int, Int)] = {
       number match {
         case 1 => r
         case _ =>
@@ -156,10 +170,11 @@ object Utils {
   /**
     * Returns true if the given String is a palindrome
     *
-    * @param candidate
+    * @param candidate String to be checked
     * @return
     */
   def isPalindrome(candidate: String): Boolean = {
+    @tailrec
     def checkPalindrome(one: List[Char], two: List[Char]): Boolean = {
       (one, two) match {
         case (h1 :: t1, h2 :: t2) => if (h1 == h2) checkPalindrome(t1, t2) else false
@@ -172,9 +187,9 @@ object Utils {
   }
 
   /**
-    * Returns true if the given String is a palindrome
+    * Returns true if the given number is a palindrome
     *
-    * @param candidate
+    * @param candidate Number to be checked
     * @return
     */
   def isPalindrome(candidate: Long): Boolean = {
@@ -184,8 +199,8 @@ object Utils {
   /**
     * Rounds a Double number to the specified number of decimals
     *
-    * @param value
-    * @param places
+    * @param value Number to be rounded
+    * @param places Number of decimal places
     * @return
     */
   def roundAvoid(value: Double, places: Int): Double = {

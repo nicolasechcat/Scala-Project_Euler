@@ -2,6 +2,8 @@ package problems
 
 import utils.Utils._
 
+import scala.annotation.tailrec
+
 /*
   * Special Pythagorean triplet
   *
@@ -17,6 +19,7 @@ import utils.Utils._
 object Problem9 extends App {
 
   def pythagoreanTriplet(additionValueExpected: Int): Long = {
+    @tailrec
     def loop(a: Int, b: Int): Long = {
       val c = Math.sqrt(a * a + b * b)
       if (!c.isWhole) loop(a, b + 1)

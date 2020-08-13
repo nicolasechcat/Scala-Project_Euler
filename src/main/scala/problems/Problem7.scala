@@ -2,6 +2,8 @@ package problems
 
 import utils.Utils._
 
+import scala.annotation.tailrec
+
 /**
   * 10001st prime
   *
@@ -12,6 +14,7 @@ import utils.Utils._
   */
 object Problem7 extends App {
   def getPrimeInPosition(pos: Int): Long = {
+    @tailrec
     def loop(number: Long, primeList: List[Long], index: Int): Long = {
       if (index == pos) {
         //        println(primeList)
