@@ -34,8 +34,10 @@ object Problem1 extends App {
     (1L to (x - 1)).filter(x => x % 3 == 0 || x % 5 == 0).sum
 
 
-  measure(sumMultiplesThreeFive(1000))
-  measure(sumMultiplesThreeFive2(1000))
+  assert (measure("First implementation",sumMultiplesThreeFive( 1000)) == 233168)
+  assert (measure("Second implementation",sumMultiplesThreeFive2(1000)) == 233168)
+
+
 
 
 }

@@ -18,7 +18,7 @@ object Utils {
     val t1 = System.nanoTime()
 
     val time = Duration(t1 - t0, NANOSECONDS)
-    println("\nElapsed time: \t" + time.toNanos + " ns \t (" + time.toMillis + " ms) \t (" + time.toSeconds + " s)")
+    println("\n\tElapsed time: \t" + time.toNanos + " ns \t (" + time.toMillis + " ms) \t (" + time.toSeconds + " s)")
     println("\tResult: " + result + "\n")
     result
   }
@@ -36,8 +36,8 @@ object Utils {
     val t1 = System.nanoTime()
 
     val time = Duration(t1 - t0, NANOSECONDS)
-    println("\t" + message + "\n")
-    println("\nElapsed time: \t" + time.toNanos + " ns \t (" + time.toMillis + " ms) \t (" + time.toSeconds + " s)")
+    println("\n" + message + "")
+    println("\tElapsed time: \t" + time.toNanos + " ns \t (" + time.toMillis + " ms) \t (" + time.toSeconds + " s)")
     println("\tResult: " + result + "\n")
     result
   }
