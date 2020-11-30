@@ -24,7 +24,6 @@ object Problem2 extends App {
     @tailrec
     def loop(before: Long, last: Long, r: Long): Long = {
       val next = last + before
-      //      println(s"before: $before \t last: $last \t next: $next")
       if (next < limit) {
         if (next % 2 == 0) {
           loop(last, next, next + r)
@@ -37,6 +36,5 @@ object Problem2 extends App {
     loop(0, 1, 0)
   }
 
-  println()
   measure(evenFibonacciSum(4000000))
 }

@@ -2,6 +2,7 @@ package utils
 
 import scala.annotation.tailrec
 import scala.concurrent.duration._
+import scala.math.sqrt
 
 object Utils {
 
@@ -55,6 +56,21 @@ object Utils {
     }))
 
   val primesGenerator: LazyList[Int] = primeStream(LazyList.from(2))
+
+
+  /**
+   * Triangular numbers generator
+   *
+   * @param s Initializer
+   * @return
+   */
+  def triangularNumbersStream(s: LazyList[Int], n: Int): LazyList[Int] =
+    LazyList.cons(s.head, triangularNumbersStream(s.tail map ( _ + n), n+1))
+
+  val triangularNumbersGenerator: LazyList[Int] = triangularNumbersStream(LazyList.from(0), 0)
+
+  // assert(triangularNumbersGenerator(5) = 15)
+  // assert(triangularNumbersGenerator(7) = 28)
 
   /**
     * Returns a list with the firsts primesNumber primes
@@ -132,6 +148,21 @@ object Utils {
 
     loop(2, Nil).reverse
   }
+
+  /**
+   * Returns the list of divisors of the given number
+   * @param number
+   * @return
+   */
+  def getDivisors (number:Int): List[Int] = {
+    val leftOfPairs = List.range(1, sqrt(number).intValue()) filter {number % _ == 0}
+    if (number == 1) List (1)
+    else leftOfPairs concat leftOfPairs.map(x => number / x)
+  }
+
+//  assert (getDivisors(1) == List(1))
+//  assert (getDivisors(2) == List(1, 2))
+//  assert (getDivisors(28) == List(1,2,4,7,14,28))
 
   /**
     * Returns the factorization in prime numbers of the given number

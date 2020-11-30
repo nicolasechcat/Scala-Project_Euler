@@ -18,10 +18,9 @@ object Problem1 extends App {
     @tailrec
     def loop(n: Long, r: Long): Long = {
       if (n < x) {
-        if (n % 3 == 0 || n % 5 == 0) {
-          //          println(s"n: $n \t\t r: " + (n + r))
+        if (n % 3 == 0 || n % 5 == 0)
           loop(n + 1, n + r)
-        } else
+        else
           loop(n + 1, r)
       } else
         r
@@ -34,7 +33,7 @@ object Problem1 extends App {
     (1L to (x - 1)).filter(x => x % 3 == 0 || x % 5 == 0).sum
 
 
-  assert (measure("First implementation",sumMultiplesThreeFive( 1000)) == 233168)
+  assert (measure("First implementation",sumMultiplesThreeFive(1000)) == 233168)
   assert (measure("Second implementation",sumMultiplesThreeFive2(1000)) == 233168)
 
 

@@ -57,7 +57,6 @@ object Problem5 extends App {
     }
 
     val result = obtainMCMFactors((1L to largerDivisor).map(getPrimeFactorization).toList)
-    //    println(result)
     result.foldLeft(1L) {
       case (r, (p, e)) => r * Math.pow(p, e).toLong
     }

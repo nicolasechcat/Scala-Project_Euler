@@ -23,14 +23,14 @@ object Problem6 extends App {
 
   def differenceSquareSum(numberLimit: Int): Long = {
     @tailrec
-    def iterate(unprocessed: List[Int], squared: Long, unSquared: Long): (Long, Long) = {
+    def iterate(unprocessed: List[Int], squared: Long, unSquared: Long): Long= {
       unprocessed match {
         case h :: t => iterate(t, squared + Math.pow(h, 2).toLong, unSquared + h)
-        case Nil => (squared, unSquared)
+        case Nil => unSquared
       }
     }
 
-    val (squared, unSquared) = iterate((1 to numberLimit).toList, 0, 0)
+    val unSquared = iterate((1 to numberLimit).toList, 0, 0)
     Math.abs(unSquared - Math.pow(unSquared, 2).toLong)
   }
 

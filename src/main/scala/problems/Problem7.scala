@@ -17,7 +17,6 @@ object Problem7 extends App {
     @tailrec
     def loop(number: Long, primeList: List[Long], index: Int): Long = {
       if (index == pos) {
-        //        println(primeList)
         primeList.head
       }
       else if (primeList.forall(n => (number % n) != 0))

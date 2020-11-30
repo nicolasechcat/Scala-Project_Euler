@@ -39,6 +39,12 @@ object Problem11 extends App {
 
   val combinationLength = 4
 
+  /**
+   * Obtains a list with the product of each combination of 'combinationLength' horizontally adjacent numbers
+   *
+   * @param data Squared matrix to be inspected
+   * @return
+   */
   def getHorizontalCombinations(data: Array[Array[Int]]): List[Int] = {
     @tailrec
     def extractHorizontalCombinations(row: Array[Int], position: Int, result: List[List[Int]]): List[Int] =
@@ -48,60 +54,82 @@ object Problem11 extends App {
     data.flatMap(x => extractHorizontalCombinations(x, 0, List())).toList
   }
 
+  /**
+   * Obtains a list with the product of each combination of 'combinationLength' vertically adjacent numbers
+   *
+   * @param data Squared matrix to be inspected
+   * @return
+   */
   def getVerticalCombinations(data: Array[Array[Int]]): List[Int] = {
     @tailrec
     def extractVerticalCombinations(x: Int, y: Int, result: List[List[Int]]): List[Int] =
       if (x > data.length - combinationLength) result.reverse map (_.product)
       else {
-        if (y >= data(x).length) extractVerticalCombinations (x + 1, 0, result)
-        else extractVerticalCombinations (x, y + 1, data.slice(x, x + combinationLength).map(x => x(y)).toList :: result)
+        if (y >= data(x).length) extractVerticalCombinations(x + 1, 0, result)
+        else extractVerticalCombinations(x, y + 1, data.slice(x, x + combinationLength).map(x => x(y)).toList :: result)
       }
 
     extractVerticalCombinations(0, 0, List())
   }
 
+  /**
+   * Obtains a list with the product of each combination of 'combinationLength' diagonally to the right adjacent numbers
+   *
+   * @param data Squared matrix to be inspected
+   * @return
+   */
   def getRightDiagonalCombinations(data: Array[Array[Int]]): List[Int] = {
     @tailrec
     def extractRightDiagonalCombinations(x: Int, y: Int, result: List[List[Int]]): List[Int] = {
       @tailrec
       def rightDiagonalExtractor(position: Int, result: List[Int]): List[Int] = {
         if (position >= combinationLength) result.reverse
-        else rightDiagonalExtractor (position + 1, data(x + position)(y + position) :: result)
+        else rightDiagonalExtractor(position + 1, data(x + position)(y + position) :: result)
       }
 
       if (x > data.length - combinationLength) result.reverse map (_.product)
       else {
-        if (y > data(x).length - combinationLength) extractRightDiagonalCombinations (x + 1, 0, result)
-        else extractRightDiagonalCombinations (x, y + 1, rightDiagonalExtractor (0, List()) :: result)
+        if (y > data(x).length - combinationLength) extractRightDiagonalCombinations(x + 1, 0, result)
+        else extractRightDiagonalCombinations(x, y + 1, rightDiagonalExtractor(0, List()) :: result)
       }
     }
 
     extractRightDiagonalCombinations(0, 0, List())
   }
 
-  def getLeftDiagonalCombinations(data: Array[Array[Int]]): List[Int]= {
+  /**
+   * Obtains a list with the product of each combination of 'combinationLength' diagonally to the left adjacent numbers
+   *
+   * @param data Squared matrix to be inspected
+   * @return
+   */
+  def getLeftDiagonalCombinations(data: Array[Array[Int]]): List[Int] = {
     @tailrec
     def extractLeftDiagonalCombinationProduct(x: Int, y: Int, result: List[List[Int]]): List[Int] = {
       @tailrec
       def LeftDiagonalExtractor(position: Int, result: List[Int]): List[Int] = {
         if (position >= combinationLength) result.reverse
-        else LeftDiagonalExtractor (position + 1, data(x + position)(y - position) :: result)
+        else LeftDiagonalExtractor(position + 1, data(x + position)(y - position) :: result)
       }
 
       if (x > data.length - combinationLength) result.reverse map (_.product)
       else {
-        if (y >= data(x).length) extractLeftDiagonalCombinationProduct (x + 1, combinationLength - 1, result)
-        else extractLeftDiagonalCombinationProduct (x, y + 1, LeftDiagonalExtractor (0, List()) :: result)
+        if (y >= data(x).length) extractLeftDiagonalCombinationProduct(x + 1, combinationLength - 1, result)
+        else extractLeftDiagonalCombinationProduct(x, y + 1, LeftDiagonalExtractor(0, List()) :: result)
       }
     }
 
     extractLeftDiagonalCombinationProduct(0, combinationLength - 1, List())
   }
 
-
+  /**
+   * Returns the maximum product of 'combinationLength' adjacent numbers in the same direction
+   *
+   * @param data
+   * @return
+   */
   def greatestProductAdjacentNumbers(data: Array[Array[Int]]): Int = {
-    (getHorizontalCombinations(data) concat getVerticalCombinations(data) concat getRightDiagonalCombinations (data)
-      concat getLeftDiagonalCombinations (data)).max
+    (getHorizontalCombinations(data) concat getVerticalCombinations(data) concat getRightDiagonalCombinations(data) concat getLeftDiagonalCombinations(data)).max
   }
 
   val data_test: Array[Array[Int]] = List(
@@ -126,19 +154,19 @@ object Problem11 extends App {
     "20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54",
     "01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48").
     map(_.split(" ").map(_.toInt).toArray).toArray
-//  data_test.foreach(x => println(x.mkString("\t")))
+  //  data_test.foreach(x => println(x.mkString("\t")))
 
-//  println("Number of Horizontal combinations = " + getHorizontalCombinations (data_test).length)
-//  getHorizontalCombinations (data_test).foreach(x => println (x))
-//  println("Number of Vertical combinations = " + getVerticalCombinations (data_test).length)
-//  getVerticalCombinations (data_test).foreach(x => println (x))
-//  println("Number of right diagonal combinations = " + getRightDiagonalCombinations (data_test).length)
-//  getRightDiagonalCombinations (data_test).foreach(x => println (x))
-//  println("Number of right diagonal combinations = " + getLeftDiagonalCombinations (data_test).length)
-//    getLeftDiagonalCombinations (data_test).foreach(x => println (x))
+  //  println("Number of Horizontal combinations = " + getHorizontalCombinations (data_test).length)
+  //  getHorizontalCombinations (data_test).foreach(x => println (x))
+  //  println("Number of Vertical combinations = " + getVerticalCombinations (data_test).length)
+  //  getVerticalCombinations (data_test).foreach(x => println (x))
+  //  println("Number of right diagonal combinations = " + getRightDiagonalCombinations (data_test).length)
+  //  getRightDiagonalCombinations (data_test).foreach(x => println (x))
+  //  println("Number of right diagonal combinations = " + getLeftDiagonalCombinations (data_test).length)
+  //    getLeftDiagonalCombinations (data_test).foreach(x => println (x))
 
-//  measure (greatestProductAdjacentNumbers(data_test))
-  assert (measure (greatestProductAdjacentNumbers(data_test)) == 70600674)
+  //  measure (greatestProductAdjacentNumbers(data_test))
+  assert(measure(greatestProductAdjacentNumbers(data_test)) == 70600674)
 }
 
 
