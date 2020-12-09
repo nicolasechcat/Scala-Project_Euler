@@ -56,6 +56,20 @@ object Utils {
     loop (number, 1)
   }
 
+  /**
+   * Pow function for huge numbers
+   * @param base
+   * @param exponent
+   * @return
+   */
+  def BigIntPow (base: Int, exponent: Int): BigInt = {
+    def loop (n: Int, result: BigInt): BigInt = {
+      if (n == 0) result
+      else loop (n - 1, result * base)
+    }
+
+    loop (exponent, BigInt(1))
+  }
 
   /**
     * Primes generator
