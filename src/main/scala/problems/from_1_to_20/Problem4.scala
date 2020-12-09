@@ -1,17 +1,17 @@
-package problems
+package problems.from_1_to_20
 
-import utils.Utils._
+import utils.Utils.{isPalindrome, measure}
 
 import scala.annotation.tailrec
 
 /**
-  * Largest palindrome product
-  *
-  * Problem 4
-  * A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
-  *
-  * Find the largest palindrome made from the product of two 3-digit numbers.
-  */
+ * Largest palindrome product
+ *
+ * Problem 4
+ * A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99.
+ *
+ * Find the largest palindrome made from the product of two 3-digit numbers.
+ */
 object Problem4 extends App {
 
   def largestPalindromeProduct(numDigits: Int): Long = {

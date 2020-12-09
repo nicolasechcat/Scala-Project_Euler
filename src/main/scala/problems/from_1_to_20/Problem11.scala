@@ -1,4 +1,4 @@
-package problems
+package problems.from_1_to_20
 
 import utils.Utils.measure
 
@@ -168,5 +168,3 @@ object Problem11 extends App {
   //  measure (greatestProductAdjacentNumbers(data_test))
   assert(measure(greatestProductAdjacentNumbers(data_test)) == 70600674)
 }
-
-

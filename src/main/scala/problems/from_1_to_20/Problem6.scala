@@ -1,9 +1,8 @@
-package problems
+package problems.from_1_to_20
 
-import utils.Utils._
+import utils.Utils.measure
 
 import scala.annotation.tailrec
-
 
 /*
   * Sum square difference
@@ -23,7 +22,7 @@ object Problem6 extends App {
 
   def differenceSquareSum(numberLimit: Int): Long = {
     @tailrec
-    def iterate(unprocessed: List[Int], squared: Long, unSquared: Long): Long= {
+    def iterate(unprocessed: List[Int], squared: Long, unSquared: Long): Long = {
       unprocessed match {
         case h :: t => iterate(t, squared + Math.pow(h, 2).toLong, unSquared + h)
         case Nil => unSquared

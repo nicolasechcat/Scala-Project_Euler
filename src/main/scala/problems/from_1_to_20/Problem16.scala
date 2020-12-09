@@ -1,4 +1,4 @@
-package problems
+package problems.from_1_to_20
 
 import utils.Utils.{BigIntPow, measure}
 
@@ -11,7 +11,7 @@ import utils.Utils.{BigIntPow, measure}
  */
 object Problem16 extends App {
 
-  def sumDigits (n: BigInt): Int = {
+  def sumDigits(n: BigInt): Int = {
     n.toString().split("").map(_.toInt).sum
   }
 

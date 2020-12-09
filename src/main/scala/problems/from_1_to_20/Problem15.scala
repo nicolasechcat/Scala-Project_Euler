@@ -1,8 +1,6 @@
-package problems
+package problems.from_1_to_20
 
 import utils.Utils.{factorial, measure}
-
-import scala.math.abs
 
 /**
  * Lattice paths
@@ -16,6 +14,7 @@ object Problem15 extends App {
   /**
    * Brute force method
    * Doesn't end under 1 minute
+   *
    * @param x
    * @param y
    * @return
@@ -33,18 +32,19 @@ object Problem15 extends App {
    * Combinatorial theory solution based in pascal triangle
    *
    * n! / (k! * (n - k)!)
+   *
    * @param x
    * @param y
    * @return
    */
   def numberOfPathsFromPosition2(x: Int, y: Int): BigInt = {
     if (x < y)
-      factorial(x + y) / (factorial (x) * factorial(y))
+      factorial(x + y) / (factorial(x) * factorial(y))
     else
-      factorial(x + y) / (factorial (y) * factorial(x))
+      factorial(x + y) / (factorial(y) * factorial(x))
   }
 
-   assert(measure(numberOfPathsFromPosition(2, 2)) == 6)
+  assert(measure(numberOfPathsFromPosition(2, 2)) == 6)
   // assert(measure(numberOfPathsFromPosition2(2, 2)) == 6)
 
   measure(numberOfPathsFromPosition2(20, 19))

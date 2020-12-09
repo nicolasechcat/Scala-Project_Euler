@@ -1,6 +1,6 @@
-package problems
+package problems.from_1_to_20
 
-import utils.Utils._
+import utils.Utils.measure
 
 import scala.annotation.tailrec
 

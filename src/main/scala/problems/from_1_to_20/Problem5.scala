@@ -1,17 +1,17 @@
-package problems
+package problems.from_1_to_20
 
-import utils.Utils._
+import utils.Utils.{getPrimeFactorization, measure}
 
 import scala.annotation.tailrec
 
 /**
-  * Smallest multiple
-  *
-  * Problem 5
-  * 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
-  *
-  * What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
-  */
+ * Smallest multiple
+ *
+ * Problem 5
+ * 2520 is the smallest number that can be divided by each of the numbers from 1 to 10 without any remainder.
+ *
+ * What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
+ */
 object Problem5 extends App {
 
   def smallestDivisibleByRange(largerDivisor: Int): Long = {

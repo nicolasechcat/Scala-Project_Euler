@@ -1,6 +1,4 @@
-package problems
-
-import utils.Utils.measure
+package problems.from_1_to_20
 
 /**
  * Longest Collatz sequence
@@ -32,7 +30,6 @@ object Problem14 extends App {
 
     loop(BigInt(number), List())
   }
-
 
 
   // assert(measure(collatzSequence(13)) == List(13, 40, 20, 10, 5, 16, 8, 4, 2, 1))
