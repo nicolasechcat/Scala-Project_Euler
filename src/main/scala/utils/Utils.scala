@@ -43,6 +43,19 @@ object Utils {
     result
   }
 
+  /**
+   * Function factorial defined only to natural numbers
+   * @param number
+   * @return
+   */
+  def factorial (number: Int): BigInt = {
+    def loop (n: Int, result: BigInt): BigInt = {
+      if (n <= 1) result
+      else loop (n - 1, result * BigInt(n))
+    }
+    loop (number, 1)
+  }
+
 
   /**
     * Primes generator
